@@ -15,7 +15,7 @@ const frameColors = [
   { id: 'emerald', hex: '#a7f3d0', isPremium: true },
   { id: 'teal', hex: '#99f6e4', isPremium: true },
   { id: 'cyan', hex: '#a5f3fc', isPremium: true },
-  { id: 'blue', hex: '#bfdbfe', isPremium: true },
+  { id: 'blue-premium', hex: '#bfdbfe', isPremium: true },
   { id: 'indigo', hex: '#c7d2fe', isPremium: true },
   { id: 'violet', hex: '#ddd6fe', isPremium: true },
   { id: 'purple', hex: '#e9d5ff', isPremium: true },
