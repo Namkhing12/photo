@@ -278,7 +278,7 @@ export default function PhotoEditor({ photos, onRetake, onRemovePhoto, filterCla
            {/* 3. Text Editor */}
           <div className="mb-6">
             <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
-              <Type size={16} /> ข้อความ
+              <Type size={16} /> ข้อความ 🩷 (สามารถแก้ไขได้)
             </h3>
             <div className="flex flex-col gap-3 bg-white/50 p-4 rounded-2xl border border-white">
               <input type="text" value={footerTitle} onChange={(e) => setFooterTitle(e.target.value)} className="w-full px-3 py-2 rounded-xl text-sm outline-none" maxLength={25} />

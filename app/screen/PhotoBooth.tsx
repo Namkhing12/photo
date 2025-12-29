@@ -7,80 +7,21 @@ import {
   RefreshCw, ArrowRight, X, Image as ImageIcon, Trash2, FlipHorizontal
 } from 'lucide-react';
 
-// --- 1. ส่วนประกอบไอคอนเฟรม (CSS Drawing) ---
+// --- ส่วนประกอบไอคอนเฟรมคงเดิม (ย่อเพื่อประหยัดพื้นที่) ---
 const FrameIcon = ({ type }: { type: string }) => {
   const baseClass = "border border-gray-400 bg-gray-100";
-  
-  if (type === '2-v') return (
-    <div className="flex flex-col gap-[1px] w-3 h-5">
-      <div className={`w-full h-1/2 ${baseClass}`}></div>
-      <div className={`w-full h-1/2 ${baseClass}`}></div>
-    </div>
-  );
-  if (type === '3-v') return (
-    <div className="flex flex-col gap-[1px] w-3 h-5">
-      <div className={`w-full h-1/3 ${baseClass}`}></div>
-      <div className={`w-full h-1/3 ${baseClass}`}></div>
-      <div className={`w-full h-1/3 ${baseClass}`}></div>
-    </div>
-  );
-  if (type === '4-v') return (
-    <div className="flex flex-col gap-[1px] w-3 h-5">
-      <div className={`w-full h-1/4 ${baseClass}`}></div>
-      <div className={`w-full h-1/4 ${baseClass}`}></div>
-      <div className={`w-full h-1/4 ${baseClass}`}></div>
-      <div className={`w-full h-1/4 ${baseClass}`}></div>
-    </div>
-  );
-  if (type === '4-grid') return (
-    <div className="grid grid-cols-2 gap-[1px] w-4 h-4">
-      <div className={`aspect-square ${baseClass}`}></div>
-      <div className={`aspect-square ${baseClass}`}></div>
-      <div className={`aspect-square ${baseClass}`}></div>
-      <div className={`aspect-square ${baseClass}`}></div>
-    </div>
-  );
-  if (type === '6-grid') return (
-    <div className="grid grid-cols-2 gap-[1px] w-4 h-5">
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-    </div>
-  );
-  if (type === '8-grid') return (
-    <div className="grid grid-cols-2 gap-[1px] w-4 h-6">
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-      <div className={`h-1.5 ${baseClass}`}></div>
-    </div>
-  );
-  if (type === '10-grid') return (
-    <div className="grid grid-cols-2 gap-[1px] w-4 h-8">
-      {[...Array(10)].map((_, i) => (
-        <div key={i} className={`h-1.5 ${baseClass}`}></div>
-      ))}
-    </div>
-  );
-  
+  if (type === '2-v') return <div className="flex flex-col gap-[1px] w-3 h-5"><div className={`w-full h-1/2 ${baseClass}`}></div><div className={`w-full h-1/2 ${baseClass}`}></div></div>;
+  if (type === '3-v') return <div className="flex flex-col gap-[1px] w-3 h-5"><div className={`w-full h-1/3 ${baseClass}`}></div><div className={`w-full h-1/3 ${baseClass}`}></div><div className={`w-full h-1/3 ${baseClass}`}></div></div>;
+  if (type === '4-v') return <div className="flex flex-col gap-[1px] w-3 h-5"><div className={`w-full h-1/4 ${baseClass}`}></div><div className={`w-full h-1/4 ${baseClass}`}></div><div className={`w-full h-1/4 ${baseClass}`}></div><div className={`w-full h-1/4 ${baseClass}`}></div></div>;
+  if (type === '4-grid') return <div className="grid grid-cols-2 gap-[1px] w-4 h-4"><div className={`aspect-square ${baseClass}`}></div><div className={`aspect-square ${baseClass}`}></div><div className={`aspect-square ${baseClass}`}></div><div className={`aspect-square ${baseClass}`}></div></div>;
+  if (type === '6-grid') return <div className="grid grid-cols-2 gap-[1px] w-4 h-5"><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div></div>;
+  if (type === '8-grid') return <div className="grid grid-cols-2 gap-[1px] w-4 h-6"><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div><div className={`h-1.5 ${baseClass}`}></div></div>;
+  if (type === '10-grid') return <div className="grid grid-cols-2 gap-[1px] w-4 h-8">{[...Array(10)].map((_, i) => (<div key={i} className={`h-1.5 ${baseClass}`}></div>))}</div>;
   return <div className={`w-4 h-4 ${baseClass}`}></div>;
 };
 
-// --- 2. ข้อมูลตัวเลือกต่างๆ ---
-type FrameOption = {
-  id: string;
-  label: string;
-  count: number; 
-  iconType: string;
-};
-
+// --- ข้อมูลตัวเลือกคงเดิม ---
+type FrameOption = { id: string; label: string; count: number; iconType: string; };
 const frameOptions: FrameOption[] = [
   { id: '1-full',  label: '1 รูปภาพ', count: 1, iconType: '1-full' },
   { id: '2-strip', label: '2 รูปภาพ', count: 2, iconType: '2-v' },
@@ -89,9 +30,7 @@ const frameOptions: FrameOption[] = [
   { id: '8-grid',  label: '8 รูปภาพ', count: 8, iconType: '8-grid' },
   { id: '10-grid', label: '10 รูปภาพ', count: 10, iconType: '10-grid' },
 ];
-
 const timerOptions = [0, 3, 5, 10];
-
 const filters = [
   { id: 'normal', name: '✨ ปกติ', class: '' },
   { id: 'soft', name: '☁️ นุ่มนวล', class: 'contrast-90 brightness-110 saturate-150' },
@@ -104,80 +43,46 @@ const filters = [
   { id: 'noir', name: '🎬 ฟิล์มดำ', class: 'grayscale contrast-150 brightness-90' },
 ];
 
-interface PhotoBoothProps {
-  onFinish?: (photos: string[], filterClass: string) => void;
-}
+interface PhotoBoothProps { onFinish?: (photos: string[], filterClass: string) => void; }
 
 export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
   const webcamRef = useRef<Webcam>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // States
   const [photos, setPhotos] = useState<string[]>([]);
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('user');
-  
-  // Settings
   const [selectedFrame, setSelectedFrame] = useState<FrameOption>(frameOptions[0]);
   const [selectedFilter, setSelectedFilter] = useState<string>('normal');
   const [timerSetting, setTimerSetting] = useState<number>(3);
-  
-  // UI Controls
   const [countDown, setCountDown] = useState<number | null>(null);
   const [showFrameMenu, setShowFrameMenu] = useState(false);
   const [showTimerMenu, setShowTimerMenu] = useState(false);
 
-  // --- Functions ---
-
-  const toggleCamera = useCallback(() => {
-    setFacingMode(prev => (prev === 'user' ? 'environment' : 'user'));
-  }, []);
+  const toggleCamera = useCallback(() => { setFacingMode(prev => (prev === 'user' ? 'environment' : 'user')); }, []);
 
   const startCapture = useCallback(() => {
-    setShowFrameMenu(false);
-    setShowTimerMenu(false);
-
+    setShowFrameMenu(false); setShowTimerMenu(false);
     const takePhoto = () => {
       const imageSrc = webcamRef.current?.getScreenshot();
-      if (imageSrc) {
-        setPhotos(prev => [...prev, imageSrc]);
-      }
+      if (imageSrc) { setPhotos(prev => [...prev, imageSrc]); }
       setCountDown(null);
     };
-
-    if (timerSetting === 0) {
-      takePhoto();
-      return;
-    }
-
-    let time = timerSetting;
-    setCountDown(time);
-    
+    if (timerSetting === 0) { takePhoto(); return; }
+    let time = timerSetting; setCountDown(time);
     const interval = setInterval(() => {
-      time -= 1;
-      setCountDown(time);
-      if (time === 0) {
-        clearInterval(interval);
-        takePhoto();
-      }
+      time -= 1; setCountDown(time);
+      if (time === 0) { clearInterval(interval); takePhoto(); }
     }, 1000);
   }, [webcamRef, timerSetting]);
 
-  const resetAll = () => {
-    setPhotos([]);
-  };
-
-  const deletePhoto = (indexToDelete: number) => {
-    setPhotos(prev => prev.filter((_, index) => index !== indexToDelete));
-  };
-
+  const resetAll = () => setPhotos([]);
+  const deletePhoto = (indexToDelete: number) => { setPhotos(prev => prev.filter((_, index) => index !== indexToDelete)); };
   const handleUploadClick = () => fileInputRef.current?.click();
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setPhotos(prev => [...prev, reader.result as string]);
-      };
+      reader.onloadend = () => { setPhotos(prev => [...prev, reader.result as string]); };
       reader.readAsDataURL(file);
     }
   };
@@ -187,40 +92,41 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
 
   return (
     <div 
-      className="w-full min-h-[100dvh] bg-[#FFF0F5] relative font-sans selection:bg-pink-200 overflow-x-hidden flex flex-col"
-      onClick={() => {
-        if(showFrameMenu) setShowFrameMenu(false);
-        if(showTimerMenu) setShowTimerMenu(false);
-      }}
+      className="w-full min-h-[100dvh] bg-[#FFF0F5] relative font-sans overflow-x-hidden flex flex-col"
+      onClick={() => { setShowFrameMenu(false); setShowTimerMenu(false); }}
     >
+      {/* Background Decor */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
         <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
       </div>
 
-      <div className="relative z-10 w-full flex-grow flex flex-col items-center justify-center p-2 md:p-8">
+      <div className="relative z-10 w-full flex-grow flex flex-col items-center justify-center p-2 sm:p-4 md:p-8">
         <div 
-          className="bg-white/60 backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] shadow-2xl border border-white/50 p-4 md:p-8 w-full max-w-5xl flex flex-col md:flex-row gap-4 md:gap-8 items-start justify-center transition-all"
+          className="bg-white/60 backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] shadow-2xl border border-white/50 p-4 sm:p-6 md:p-8 w-full max-w-5xl flex flex-col md:flex-row gap-6 md:gap-8 items-start justify-center"
           onClick={(e) => e.stopPropagation()} 
         >
+          {/* LEFT SIDE: Camera & Controls */}
           <div className="flex-1 w-full flex flex-col items-center">
-            <div className="md:hidden text-center mb-2">
+            
+            <div className="md:hidden text-center mb-4">
                <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2 justify-center">
                  <Sparkles className="text-pink-500" size={18} /> Photo Booth
                </h1>
             </div>
 
+            {/* Top Bar Controls */}
             <div className="flex flex-wrap gap-2 mb-4 justify-center w-full z-50">
                <div className="relative">
                   <button 
                     onClick={(e) => { e.stopPropagation(); setShowFrameMenu(!showFrameMenu); setShowTimerMenu(false); }}
-                    className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-gray-200 text-gray-700 text-xs md:text-sm font-bold hover:border-pink-300 transition-all shadow-sm min-w-[110px] md:min-w-[130px] justify-between"
+                    className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-gray-200 text-gray-700 text-xs md:text-sm font-bold hover:border-pink-300 shadow-sm min-w-[110px] md:min-w-[130px] justify-between"
                   >
                     <div className="flex items-center gap-2">
                       <FrameIcon type={selectedFrame.iconType} />
                       <span>{selectedFrame.label}</span>
                     </div>
-                    <ChevronDown size={14} className={`opacity-50 ${showFrameMenu ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={14} className={`transition-transform ${showFrameMenu ? 'rotate-180' : ''}`} />
                   </button>
                   {showFrameMenu && (
                     <div className="absolute top-full left-0 mt-2 w-[240px] md:w-[280px] bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden p-2 grid grid-cols-2 gap-1 z-50 animate-in fade-in zoom-in-95">
@@ -241,10 +147,10 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                <div className="relative">
                   <button 
                     onClick={(e) => { e.stopPropagation(); setShowTimerMenu(!showTimerMenu); setShowFrameMenu(false); }}
-                    className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-gray-200 text-gray-700 text-xs md:text-sm font-bold hover:border-pink-300 transition-all shadow-sm min-w-[100px] md:min-w-[120px] justify-between"
+                    className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-gray-200 text-gray-700 text-xs md:text-sm font-bold hover:border-pink-300 shadow-sm min-w-[100px] md:min-w-[120px] justify-between"
                   >
                     <span>{timerSetting === 0 ? 'ไม่นับ' : `${timerSetting}s`}</span>
-                    <ChevronDown size={14} className={`opacity-50 ${showTimerMenu ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={14} className={`transition-transform ${showTimerMenu ? 'rotate-180' : ''}`} />
                   </button>
                    {showTimerMenu && (
                     <div className="absolute top-full left-0 mt-2 w-full bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden p-1 z-50">
@@ -262,39 +168,39 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                </div>
 
                <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className="hidden" />
-               <button onClick={handleUploadClick} className="flex items-center gap-2 bg-white border border-pink-200 px-3 py-2 rounded-xl text-pink-500 text-xs md:text-sm font-bold hover:bg-pink-50 shadow-sm transition-all">
+               <button onClick={handleUploadClick} className="flex items-center gap-2 bg-white border border-pink-200 px-3 py-2 rounded-xl text-pink-500 text-xs md:text-sm font-bold hover:bg-pink-50 shadow-sm">
                  <Upload size={14} />
-                 <span>อัปโหลด</span>
+                 <span>เพิ่มรูป</span>
                </button>
             </div>
 
-            {/* Camera Area - จุดหลักที่แก้เรื่องซูม */}
-            <div className="relative w-full max-w-[420px] aspect-[3/4] bg-white rounded-[1.5rem] md:rounded-[2rem] p-2 md:p-3 shadow-2xl border border-gray-100 mb-4 md:mb-6 group overflow-hidden">
-               <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-black">
+            {/* Camera Area - ปรับปรุงให้เต็มกรอบขาวเสมอ */}
+            <div className="relative w-full max-w-[420px] aspect-[3/4] bg-white rounded-[1.5rem] md:rounded-[2.5rem] p-2 md:p-4 shadow-2xl border border-gray-100 mb-6 flex items-center justify-center overflow-hidden">
+               <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.8rem] overflow-hidden bg-black">
                   <Webcam
                     audio={false}
                     ref={webcamRef}
                     screenshotFormat="image/jpeg"
                     mirrored={facingMode === 'user'}
                     videoConstraints={{ 
-                      // แก้ไข: ใช้กว้าง x สูง ที่ลดการ Crop และเลือกเลนส์ที่ดีที่สุด
-                      width: { ideal: 1920, min: 1280 },
-                      height: { ideal: 1080, min: 720 },
+                      width: { ideal: 1920 },
+                      height: { ideal: 1080 },
                       facingMode: facingMode,
-                      // เพิ่มเติม: ป้องกันการบังคับซูมบน iOS/iPadOS
-                      aspectRatio: { ideal: 1.3333333333 } 
+                      aspectRatio: { ideal: 0.75 } // บังคับ 3:4 
                     }}
-                    // CSS: object-cover จะทำงานร่วมกับ Resolution ที่สูงขึ้นเพื่อลดอาการภาพโดนเจาะ
-                    className={`w-full h-full object-cover transition-all duration-700 ${activeFilterClass}`}
+                    // ใช้ object-cover เพื่อให้กล้องขยายเต็มพื้นที่กรอบวิดีโอเสมอ
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${activeFilterClass}`}
                   />
                   
+                  {/* Camera Toggle Button */}
                   <button 
                     onClick={toggleCamera}
-                    className="absolute top-3 right-3 bg-black/40 backdrop-blur-md text-white p-2.5 rounded-full hover:bg-pink-500 transition-all z-40 active:scale-90 border border-white/20"
+                    className="absolute top-3 right-3 bg-black/40 backdrop-blur-md text-white p-2.5 rounded-full hover:bg-pink-500 transition-all z-40 border border-white/20 active:scale-90"
                   >
                     <RefreshCw size={18} className={facingMode === 'environment' ? 'rotate-180' : ''} />
                   </button>
                   
+                  {/* Countdown */}
                   {countDown !== null && countDown > 0 && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm z-30">
                       <span className="text-8xl md:text-9xl font-bold text-white drop-shadow-lg animate-bounce">{countDown}</span>
@@ -302,22 +208,24 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                   )}
                </div>
                
-               <div className="absolute bottom-4 md:bottom-6 left-0 right-0 flex justify-center gap-2 z-20">
+               {/* Progress Dots */}
+               <div className="absolute bottom-6 md:bottom-10 left-0 right-0 flex justify-center gap-2 z-20">
                  {Array.from({ length: selectedFrame.count }).map((_, i) => (
-                   <div key={i} className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full transition-all ${i < photos.length ? 'bg-pink-500 scale-110' : 'bg-white/50'}`}></div>
+                   <div key={i} className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full transition-all ${i < photos.length ? 'bg-pink-500 scale-125 shadow-md' : 'bg-white/60'}`}></div>
                  ))}
                </div>
             </div>
 
+            {/* Filters Slider */}
             <div className="w-full max-w-[420px]">
-              <div className="flex gap-2 md:gap-3 overflow-x-auto pb-3 px-2 scrollbar-hide">
+              <div className="flex gap-2 md:gap-3 overflow-x-auto pb-4 px-2 scrollbar-hide">
                 {filters.map((filter) => {
                   const isActive = selectedFilter === filter.id;
                   return (
                     <button
                       key={filter.id}
                       onClick={() => setSelectedFilter(filter.id)}
-                      className={`relative px-4 py-1.5 md:px-5 md:py-2 rounded-full text-xs md:text-sm font-bold whitespace-nowrap transition-all border ${isActive ? 'bg-pink-50 border-pink-400 text-pink-500' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'}`}
+                      className={`px-4 py-1.5 md:px-5 md:py-2 rounded-full text-xs md:text-sm font-bold whitespace-nowrap transition-all border ${isActive ? 'bg-pink-50 border-pink-400 text-pink-500' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'}`}
                     >
                       {filter.name}
                     </button>
@@ -326,7 +234,8 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
               </div>
             </div>
 
-            <div className="mt-2 md:mt-4 flex flex-col items-center gap-3 w-full">
+            {/* Actions */}
+            <div className="mt-4 flex flex-col items-center gap-3 w-full">
               {!isComplete ? (
                 <button 
                   onClick={startCapture}
@@ -350,7 +259,8 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
             </div>
           </div>
 
-          <div className="hidden md:flex flex-col gap-4 w-[140px] sticky top-8 h-[calc(100vh-120px)] overflow-y-auto pr-2 scrollbar-thin">
+          {/* RIGHT SIDE: Preview Strip */}
+          <div className="hidden md:flex flex-col gap-4 w-[140px] sticky top-8 h-[calc(100vh-120px)] overflow-y-auto pr-2 scrollbar-hide">
               <div className="text-gray-400 text-xs font-bold uppercase tracking-wider text-center mb-1 sticky top-0 bg-white/90 backdrop-blur-sm py-2 z-10">Previews</div>
               <div className="flex flex-col gap-3 pb-4">
                 {Array.from({ length: selectedFrame.count }).map((_, i) => {
@@ -361,7 +271,7 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                          <>
                            <img src={photo} className={`w-full h-full object-cover ${activeFilterClass}`} />
                            <button onClick={() => deletePhoto(i)} className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all text-white font-bold text-xs z-10">
-                             <Trash2 size={20} className="text-white hover:text-red-400" />
+                             <Trash2 size={20} />
                            </button>
                          </>
                        ) : (
