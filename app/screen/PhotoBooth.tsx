@@ -284,7 +284,7 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
 
             {/* Camera Area */}
             <div className="relative w-full max-w-[420px] aspect-[3/4] bg-white rounded-[1.5rem] md:rounded-[2rem] p-2 md:p-3 shadow-2xl border border-gray-100 mb-4 md:mb-6 group">
-               <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-black">
+               <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-gray-900">
                   <Webcam
                     audio={false}
                     ref={webcamRef}
@@ -292,13 +292,13 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                     mirrored={facingMode === 'user'}
                     videoConstraints={{ 
                       facingMode: facingMode,
-                      // ใช้ค่า ideal เพื่อพยายามขอเลนส์ Wide และความละเอียดสูงสุด
+                      // ใช้ค่าความละเอียดสูงเพื่อความชัดเจนเวลาขยายเต็มกรอบ
                       width: { ideal: 1440 },
                       height: { ideal: 1920 },
                       aspectRatio: 3/4 
                     }}
-                    // ใช้ object-contain เพื่อให้เห็นขอบเขตกล้องทั้งหมด (ซูมออก)
-                    className={`w-full h-full object-contain transition-all duration-700 ${activeFilterClass}`}
+                    // ใช้ object-cover เพื่อให้ภาพเต็มกรอบ (Full Bleed)
+                    className={`w-full h-full object-cover transition-all duration-700 ${activeFilterClass}`}
                   />
                   
                   {/* Floating Flip Camera Button */}
