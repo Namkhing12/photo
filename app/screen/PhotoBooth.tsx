@@ -193,28 +193,23 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
         if(showTimerMenu) setShowTimerMenu(false);
       }}
     >
-      {/* Background Decor */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
         <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="relative z-10 w-full flex-grow flex flex-col items-center justify-center p-2 md:p-8">
-        
         <div 
           className="bg-white/60 backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] shadow-2xl border border-white/50 p-4 md:p-8 w-full max-w-5xl flex flex-col md:flex-row gap-4 md:gap-8 items-start justify-center transition-all"
           onClick={(e) => e.stopPropagation()} 
         >
-          {/* LEFT SIDE: Camera & Controls */}
           <div className="flex-1 w-full flex flex-col items-center">
-            
             <div className="md:hidden text-center mb-2">
                <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2 justify-center">
                  <Sparkles className="text-pink-500" size={18} /> Photo Booth
                </h1>
             </div>
 
-            {/* Top Bar Controls */}
             <div className="flex flex-wrap gap-2 mb-4 justify-center w-full z-50">
                <div className="relative">
                   <button 
@@ -227,17 +222,12 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                     </div>
                     <ChevronDown size={14} className={`opacity-50 ${showFrameMenu ? 'rotate-180' : ''}`} />
                   </button>
-                  
                   {showFrameMenu && (
                     <div className="absolute top-full left-0 mt-2 w-[240px] md:w-[280px] bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden p-2 grid grid-cols-2 gap-1 z-50 animate-in fade-in zoom-in-95">
                       {frameOptions.map((option) => (
                         <button
                           key={option.id}
-                          onClick={() => { 
-                             setSelectedFrame(option); 
-                             setPhotos([]); 
-                             setShowFrameMenu(false); 
-                          }}
+                          onClick={() => { setSelectedFrame(option); setPhotos([]); setShowFrameMenu(false); }}
                           className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs md:text-sm transition-colors text-left ${selectedFrame.id === option.id ? 'bg-gray-100 font-bold text-gray-900' : 'hover:bg-gray-50 text-gray-600'}`}
                         >
                           <FrameIcon type={option.iconType} />
@@ -256,7 +246,6 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                     <span>{timerSetting === 0 ? 'ไม่นับ' : `${timerSetting}s`}</span>
                     <ChevronDown size={14} className={`opacity-50 ${showTimerMenu ? 'rotate-180' : ''}`} />
                   </button>
-
                    {showTimerMenu && (
                     <div className="absolute top-full left-0 mt-2 w-full bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden p-1 z-50">
                       {timerOptions.map((time) => (
@@ -273,65 +262,53 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                </div>
 
                <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className="hidden" />
-               <button 
-                 onClick={handleUploadClick}
-                 className="flex items-center gap-2 bg-white border border-pink-200 px-3 py-2 rounded-xl text-pink-500 text-xs md:text-sm font-bold hover:bg-pink-50 shadow-sm transition-all"
-               >
+               <button onClick={handleUploadClick} className="flex items-center gap-2 bg-white border border-pink-200 px-3 py-2 rounded-xl text-pink-500 text-xs md:text-sm font-bold hover:bg-pink-50 shadow-sm transition-all">
                  <Upload size={14} />
                  <span>อัปโหลด</span>
                </button>
             </div>
 
-            {/* Camera Area */}
-            <div className="relative w-full max-w-[420px] aspect-[3/4] bg-white rounded-[1.5rem] md:rounded-[2rem] p-2 md:p-3 shadow-2xl border border-gray-100 mb-4 md:mb-6 group">
-               <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-gray-900">
+            {/* Camera Area - จุดหลักที่แก้เรื่องซูม */}
+            <div className="relative w-full max-w-[420px] aspect-[3/4] bg-white rounded-[1.5rem] md:rounded-[2rem] p-2 md:p-3 shadow-2xl border border-gray-100 mb-4 md:mb-6 group overflow-hidden">
+               <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-black">
                   <Webcam
                     audio={false}
                     ref={webcamRef}
                     screenshotFormat="image/jpeg"
                     mirrored={facingMode === 'user'}
                     videoConstraints={{ 
+                      // แก้ไข: ใช้กว้าง x สูง ที่ลดการ Crop และเลือกเลนส์ที่ดีที่สุด
+                      width: { ideal: 1920, min: 1280 },
+                      height: { ideal: 1080, min: 720 },
                       facingMode: facingMode,
-                      // ใช้ค่าความละเอียดสูงเพื่อความชัดเจนเวลาขยายเต็มกรอบ
-                      width: { ideal: 1440 },
-                      height: { ideal: 1920 },
-                      aspectRatio: 3/4 
+                      // เพิ่มเติม: ป้องกันการบังคับซูมบน iOS/iPadOS
+                      aspectRatio: { ideal: 1.3333333333 } 
                     }}
-                    // ใช้ object-cover เพื่อให้ภาพเต็มกรอบ (Full Bleed)
+                    // CSS: object-cover จะทำงานร่วมกับ Resolution ที่สูงขึ้นเพื่อลดอาการภาพโดนเจาะ
                     className={`w-full h-full object-cover transition-all duration-700 ${activeFilterClass}`}
                   />
                   
-                  {/* Floating Flip Camera Button */}
                   <button 
                     onClick={toggleCamera}
                     className="absolute top-3 right-3 bg-black/40 backdrop-blur-md text-white p-2.5 rounded-full hover:bg-pink-500 transition-all z-40 active:scale-90 border border-white/20"
-                    title="สลับกล้องหน้า/หลัง"
                   >
                     <RefreshCw size={18} className={facingMode === 'environment' ? 'rotate-180' : ''} />
                   </button>
                   
-                  {/* Countdown Overlay */}
                   {countDown !== null && countDown > 0 && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm z-30">
-                      <span className="text-8xl md:text-9xl font-bold text-white drop-shadow-lg animate-bounce">
-                        {countDown}
-                      </span>
+                      <span className="text-8xl md:text-9xl font-bold text-white drop-shadow-lg animate-bounce">{countDown}</span>
                     </div>
                   )}
                </div>
                
-               {/* Progress Dots */}
                <div className="absolute bottom-4 md:bottom-6 left-0 right-0 flex justify-center gap-2 z-20">
                  {Array.from({ length: selectedFrame.count }).map((_, i) => (
-                   <div 
-                     key={i} 
-                     className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full transition-all ${i < photos.length ? 'bg-pink-500 scale-110' : 'bg-white/50'}`}
-                   ></div>
+                   <div key={i} className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full transition-all ${i < photos.length ? 'bg-pink-500 scale-110' : 'bg-white/50'}`}></div>
                  ))}
                </div>
             </div>
 
-            {/* Filters Slider */}
             <div className="w-full max-w-[420px]">
               <div className="flex gap-2 md:gap-3 overflow-x-auto pb-3 px-2 scrollbar-hide">
                 {filters.map((filter) => {
@@ -349,7 +326,6 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="mt-2 md:mt-4 flex flex-col items-center gap-3 w-full">
               {!isComplete ? (
                 <button 
@@ -362,17 +338,10 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                 </button>
               ) : (
                 <div className="flex flex-col md:flex-row gap-3 md:gap-4 items-center w-full justify-center">
-                    <button 
-                      onClick={() => deletePhoto(photos.length - 1)}
-                      className="bg-gray-100 text-gray-600 px-6 py-3 rounded-full text-sm font-bold hover:bg-gray-200 transition-all flex items-center gap-2 shadow-sm w-full md:w-auto justify-center"
-                    >
+                    <button onClick={() => deletePhoto(photos.length - 1)} className="bg-gray-100 text-gray-600 px-6 py-3 rounded-full text-sm font-bold hover:bg-gray-200 transition-all flex items-center gap-2 shadow-sm w-full md:w-auto justify-center">
                       <RefreshCw size={16} /> ถ่ายใหม่
                     </button>
-
-                    <button 
-                      onClick={() => onFinish?.(photos, activeFilterClass)}
-                      className="bg-gradient-to-r from-[#FF5C8D] to-[#FF8FAB] text-white text-base md:text-lg font-bold px-10 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center gap-3 animate-pulse w-full md:w-auto justify-center"
-                    >
+                    <button onClick={() => onFinish?.(photos, activeFilterClass)} className="bg-gradient-to-r from-[#FF5C8D] to-[#FF8FAB] text-white text-base md:text-lg font-bold px-10 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center gap-3 animate-pulse w-full md:w-auto justify-center">
                       <span>ต่อไป</span>
                       <ArrowRight size={20} />
                     </button>
@@ -381,12 +350,8 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
             </div>
           </div>
 
-          {/* RIGHT SIDE: Preview Strip */}
           <div className="hidden md:flex flex-col gap-4 w-[140px] sticky top-8 h-[calc(100vh-120px)] overflow-y-auto pr-2 scrollbar-thin">
-              <div className="text-gray-400 text-xs font-bold uppercase tracking-wider text-center mb-1 sticky top-0 bg-white/90 backdrop-blur-sm py-2 z-10">
-                Previews
-              </div>
-              
+              <div className="text-gray-400 text-xs font-bold uppercase tracking-wider text-center mb-1 sticky top-0 bg-white/90 backdrop-blur-sm py-2 z-10">Previews</div>
               <div className="flex flex-col gap-3 pb-4">
                 {Array.from({ length: selectedFrame.count }).map((_, i) => {
                   const photo = photos[i];
@@ -395,10 +360,7 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                        {photo ? (
                          <>
                            <img src={photo} className={`w-full h-full object-cover ${activeFilterClass}`} />
-                           <button 
-                             onClick={() => deletePhoto(i)}
-                             className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all text-white font-bold text-xs z-10"
-                           >
+                           <button onClick={() => deletePhoto(i)} className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all text-white font-bold text-xs z-10">
                              <Trash2 size={20} className="text-white hover:text-red-400" />
                            </button>
                          </>
@@ -409,18 +371,13 @@ export default function PhotoBooth({ onFinish }: PhotoBoothProps) {
                   );
                 })}
               </div>
-              
               {photos.length > 0 && (
-                <button onClick={resetAll} className="text-gray-400 text-xs underline hover:text-red-400 transition-colors text-center pb-4">
-                  รีเซ็ตทั้งหมด
-                </button>
+                <button onClick={resetAll} className="text-gray-400 text-xs underline hover:text-red-400 transition-colors text-center pb-4">รีเซ็ตทั้งหมด</button>
               )}
           </div>
         </div>
 
-        <div className="mt-6 md:mt-8 text-pink-300/80 text-[10px] md:text-xs font-medium text-center">
-          Powered by Next.js & Love 💖
-        </div>
+        <div className="mt-6 md:mt-8 text-pink-300/80 text-[10px] md:text-xs font-medium text-center">Powered by Next.js & Love 💖</div>
       </div>
     </div>
   );
